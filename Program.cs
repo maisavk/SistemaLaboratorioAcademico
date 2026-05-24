@@ -1,118 +1,82 @@
 ﻿using System;
 using SistemaLaboratorioAcademico;
-
-// Cenário realista: execução do sistema de laboratório acadêmico em memória
+using SistemaLaboratorioAcademico.Application;
+using SistemaLaboratorioAcademico.Application.DTOs.ProgramaPrototipacao;
+using SistemaLaboratorioAcademico.Application.Services;
 
 Console.WriteLine("═══════════════════════════════════════════════════════════════");
-Console.WriteLine("  SISTEMA DE LABORATÓRIO ACADÊMICO - EXECUÇÃO EM MEMÓRIA");
+Console.WriteLine("  SISTEMA DE LABORATÓRIO ACADÊMICO - FLUXO DE APLICAÇÃO");
 Console.WriteLine("═══════════════════════════════════════════════════════════════\n");
 
-try
+var store = new InMemoryLaboratoryStore();
+
+var estudante = new Estudante("Maria Silva Santos", "2024001234");
+var professor = new Professor("Dr. João Carlos Pereira", "1234567");
+var laboratorio = new LaboratorioMaker("Lab Maker Innovation", "Bloco A, Sala 301");
+
+store.AddEstudante(estudante);
+store.AddProfessor(professor);
+store.AddLaboratorio(laboratorio);
+
+Console.WriteLine("📋 [ETAPA 1] Dados de atores carregados no store:");
+Console.WriteLine($"  - Estudante: {estudante.Nome} (ID: {estudante.Id})");
+Console.WriteLine($"  - Professor: {professor.Nome} (ID: {professor.Id})");
+Console.WriteLine($"  - Laboratório: {laboratorio.Nome} (ID: {laboratorio.Id})\n");
+
+var programaService = new ProgramaPrototipacaoService(store);
+
+var input = new CreateProgramaInput
 {
-    // Instanciação de um cenário realista
-    Console.WriteLine("📋 [ETAPA 1] Criando os atores principais do sistema...\n");
+    Nome = "Programa de Prototipação Acadêmica",
+    CoordenadorId = estudante.Id,
+    OrientadorId = professor.Id,
+    LaboratorioId = laboratorio.Id
+};
 
-    var estudante = new Estudante("Maria Silva Santos", "2024001234");
-    Console.WriteLine($"✓ Estudante criado: {estudante.Nome} (ID: {estudante.Id}, RA: {estudante.RegistroAcademico})");
+Console.WriteLine("📋 [ETAPA 2] Executando serviço de aplicação para criar programa...");
+var resultado = programaService.Create(input);
 
-    var professor = new Professor("Dr. João Carlos Pereira", "1234567");
-    Console.WriteLine($"✓ Professor criado: {professor.Nome} (ID: {professor.Id}, SIAPE: {professor.Siape})");
-
-    var laboratorio = new LaboratorioMaker("Lab Maker Innovation", "Bloco A, Sala 301");
-    Console.WriteLine($"✓ Laboratório criado: {laboratorio.Nome} (ID: {laboratorio.Id}, Local: {laboratorio.Localizacao})\n");
-
-    // Criação do programa de prototipação
-    Console.WriteLine("📋 [ETAPA 2] Criando o Programa de Prototipação...\n");
-
-    var programa = new ProgramaPrototipacao(
-        "Projeto de IoT para Agricultura Inteligente",
-        estudante,
-        professor,
-        laboratorio
-    );
-    Console.WriteLine($"✓ Programa criado: {programa.Nome} (ID: {programa.Id})\n");
-
-    // Adição de protótipos
-    Console.WriteLine("📋 [ETAPA 3] Adicionando Protótipos ao programa...\n");
-
-    var prototipo1 = new Prototipo(
-        "Sensor de Umidade Solo",
-        "Sistema embarcado com sensor capacitivo para monitoramento em tempo real da umidade do solo com comunicação via WiFi"
-    );
-    programa.AdicionarPrototipo(prototipo1);
-    Console.WriteLine($"✓ Protótipo 1 adicionado: {prototipo1.Nome} (ID: {prototipo1.Id})");
-
-    var prototipo2 = new Prototipo(
-        "Dashboard Web de Monitoramento",
-        "Interface web responsiva para visualização de dados de sensores com gráficos em tempo real e alertas automáticos"
-    );
-    programa.AdicionarPrototipo(prototipo2);
-    Console.WriteLine($"✓ Protótipo 2 adicionado: {prototipo2.Nome} (ID: {prototipo2.Id})\n");
-
-    // Convite de especialista
-    Console.WriteLine("📋 [ETAPA 4] Convidando Especialista...\n");
-
-    var especialista = new Especialista("Eng. Ana Paula Ferreira", "IoT e Sistemas Embarcados");
-    programa.ConvidarEspecialista(especialista);
-    Console.WriteLine($"✓ Especialista convidado: {especialista.Nome} (ID: {especialista.Id}, Competência: {especialista.CoreCompetence})\n");
-
-    // Relatório completo
-    Console.WriteLine("═══════════════════════════════════════════════════════════════");
-    Console.WriteLine("  📊 RELATÓRIO COMPLETO DO PROGRAMA DE PROTOTIPAÇÃO");
-    Console.WriteLine("═══════════════════════════════════════════════════════════════\n");
-
-    Console.WriteLine($"🎯 Nome do Programa: {programa.Nome}");
-    Console.WriteLine($"📌 ID do Programa: {programa.Id}\n");
-
-    Console.WriteLine($"👥 Coordenador (Estudante): {programa.Coordenador.Nome}");
-    Console.WriteLine($"   └─ Registro Acadêmico: {programa.Coordenador.RegistroAcademico}\n");
-
-    Console.WriteLine($"🎓 Orientador (Professor): {programa.Orientador.Nome}");
-    Console.WriteLine($"   └─ SIAPE: {programa.Orientador.Siape}\n");
-
-    Console.WriteLine($"🏭 Laboratório: {programa.Laboratorio.Nome}");
-    Console.WriteLine($"   └─ Localização: {programa.Laboratorio.Localizacao}\n");
-
-    Console.WriteLine("🔧 Protótipos em Desenvolvimento:");
-    foreach (var proto in programa.Prototipos)
-    {
-        Console.WriteLine($"   • {proto.Nome}");
-        Console.WriteLine($"     └─ {proto.Descricao}");
-    }
-    Console.WriteLine();
-
-    Console.WriteLine("👨‍💼 Especialistas Convidados:");
-    foreach (var esp in programa.Especialistas)
-    {
-        Console.WriteLine($"   • {esp.Nome}");
-        Console.WriteLine($"     └─ Core Competence: {esp.CoreCompetence}");
-    }
-    Console.WriteLine();
-
-    // Teste de invariantes (bloco try-catch)
-    Console.WriteLine("═══════════════════════════════════════════════════════════════");
-    Console.WriteLine("  🧪 TESTE DE VALIDAÇÃO DE INVARIANTES");
-    Console.WriteLine("═══════════════════════════════════════════════════════════════\n");
-
-    Console.WriteLine("Tentando criar um Estudante com nome vazio (deve falhar)...\n");
-
-    try
-    {
-        var estudantInvalido = new Estudante("", "2024005678");
-    }
-    catch (ArgumentException ex)
-    {
-        Console.WriteLine($"❌ EXCEÇÃO CAPTURADA (esperada): {ex.Message}");
-        Console.WriteLine($"   └─ Nome do parâmetro: {ex.ParamName}\n");
-        Console.WriteLine("✓ Proteção de invariantes funcionando corretamente!");
-    }
-
-    Console.WriteLine("\n═══════════════════════════════════════════════════════════════");
-    Console.WriteLine("  ✅ EXECUÇÃO DO SISTEMA FINALIZADA COM SUCESSO");
-    Console.WriteLine("═══════════════════════════════════════════════════════════════");
-}
-catch (Exception ex)
+if (resultado.IsSuccess)
 {
-    Console.WriteLine($"\n❌ ERRO NÃO ESPERADO: {ex.Message}");
-    Console.WriteLine($"   Stack Trace: {ex.StackTrace}");
+    Console.WriteLine("✅ Programa criado com sucesso!");
+    Console.WriteLine($"  ID: {resultado.Value?.Id}");
+    Console.WriteLine($"  Nome: {resultado.Value?.Nome}");
+    Console.WriteLine($"  Coordenador: {resultado.Value?.CoordenadorNome} (ID: {resultado.Value?.CoordenadorId})");
+    Console.WriteLine($"  Orientador: {resultado.Value?.OrientadorNome} (ID: {resultado.Value?.OrientadorId})");
+    Console.WriteLine($"  Laboratório: {resultado.Value?.LaboratorioNome} (ID: {resultado.Value?.LaboratorioId})\n");
 }
+else
+{
+    Console.WriteLine("❌ Falha ao criar programa:");
+    Console.WriteLine($"  {resultado.Message}\n");
+}
+
+Console.WriteLine("═══════════════════════════════════════════════════════════════");
+Console.WriteLine("  🧪 TESTE DE INVARIANTE COM INPUT INVÁLIDO");
+Console.WriteLine("═══════════════════════════════════════════════════════════════\n");
+
+var invalidInput = new CreateProgramaInput
+{
+    Nome = string.Empty,
+    CoordenadorId = estudante.Id,
+    OrientadorId = professor.Id,
+    LaboratorioId = laboratorio.Id
+};
+
+var invalidResult = programaService.Create(invalidInput);
+
+if (invalidResult.IsSuccess)
+{
+    Console.WriteLine("⚠️ Resultado inesperado: programa criado com input inválido.");
+    Console.WriteLine($"  ID: {invalidResult.Value?.Id}");
+    Console.WriteLine($"  Nome: {invalidResult.Value?.Nome}\n");
+}
+else
+{
+    Console.WriteLine("✅ Invariante do domínio validado corretamente.");
+    Console.WriteLine($"  Mensagem de falha: {invalidResult.Message}\n");
+}
+
+Console.WriteLine("═══════════════════════════════════════════════════════════════");
+Console.WriteLine("  ✅ EXECUÇÃO DO CONSOLE FINALIZADA");
+Console.WriteLine("═══════════════════════════════════════════════════════════════");
