@@ -94,13 +94,28 @@ sequenceDiagram
 
 ## Instruções de Execução
 
-1. Abra um terminal no diretório do projeto `SistemaLaboratorioAcademico`.
-2. Execute o comando:
+Abra um terminal no diretório do projeto SistemaLaboratorioAcademico.
+
+## Pré-requisitos
+
+.NET 10 SDK instalado — necessário para compilar e executar o projeto.
+
+Git — para clonar e versionar o repositório.
+
+IDE/Editor de código: Visual Studio Code (com extensões C#) ou Visual Studio 2022.
+
+Antes de executar, compile o projeto para restaurar dependências e validar a compilação:
+
+```bash
+dotnet build
+```
+
+Depois de compilado com sucesso, execute o sistema:
 
 ```bash
 dotnet run
 ```
 
-3. O sistema será iniciado em memória e exibirá o relatório do programa de prototipação e a validação de invariantes.
+O sistema será iniciado em memória e exibirá o relatório do programa de prototipação e a validação de invariantes.
 
-> Observação: o projeto foi construído para .NET 10.0, portanto certifique-se de ter o SDK apropriado instalado.
+Observação: o projeto foi construído para .NET 10.0, portanto certifique-se de ter o SDK apropriado instalado.
