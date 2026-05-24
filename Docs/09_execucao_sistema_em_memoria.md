@@ -1,4 +1,51 @@
-﻿using System;
+# Execução do Sistema em Memória
+
+## Objetivo
+
+Este documento descreve a criação do ponto de entrada principal do sistema (`Program.cs`), que permite validar o fluxo completo do domínio acadêmico em memória. O programa demonstra a interação entre as entidades do sistema, a adição de protótipos, a convocação de especialistas e a proteção de invariantes através de validações.
+
+## Fluxo Validado
+
+### Cenário de Execução
+
+O programa realiza um teste integrado que simula um cenário realista do Sistema de Laboratório Acadêmico:
+
+1. **Criação dos Atores Principais**
+   - Instancia um `Estudante` com nome "Maria Silva Santos" e registro acadêmico "2024001234"
+   - Instancia um `Professor` com nome "Dr. João Carlos Pereira" e SIAPE "1234567"
+   - Instancia um `LaboratorioMaker` com nome "Lab Maker Innovation" localizado em "Bloco A, Sala 301"
+
+2. **Criação do Programa de Prototipação**
+   - Cria um programa intitulado "Projeto de IoT para Agricultura Inteligente"
+   - Associa o estudante como coordenador
+   - Associa o professor como orientador
+   - Associa o laboratório como espaço de trabalho
+
+3. **Adição de Protótipos**
+   - Adiciona "Sensor de Umidade Solo" - um sistema embarcado com sensor capacitivo
+   - Adiciona "Dashboard Web de Monitoramento" - interface web responsiva para visualização
+
+4. **Convite de Especialista**
+   - Convida "Eng. Ana Paula Ferreira" especialista em "IoT e Sistemas Embarcados"
+
+5. **Geração de Relatório**
+   - Exibe todas as informações do programa, incluindo:
+     - Nome e ID do programa
+     - Coordenador e seus dados acadêmicos
+     - Orientador e seus dados funcionais
+     - Laboratório e localização
+     - Lista de protótipos em desenvolvimento
+     - Especialistas convidados
+
+6. **Teste de Validação**
+   - Simula uma falha de validação tentando criar um `Estudante` com nome vazio
+   - Captura a exceção e exibe a mensagem de proteção de invariantes
+   - Comprova que as regras de negócio estão funcionando corretamente
+
+## Código Gerado
+
+```csharp
+using System;
 using SistemaLaboratorioAcademico;
 
 // Cenário realista: execução do sistema de laboratório acadêmico em memória
@@ -116,3 +163,32 @@ catch (Exception ex)
     Console.WriteLine($"\n❌ ERRO NÃO ESPERADO: {ex.Message}");
     Console.WriteLine($"   Stack Trace: {ex.StackTrace}");
 }
+```
+
+## Resultado Esperado
+
+Ao executar o programa, você verá no console:
+
+1. A criação de cada ator com seus IDs gerados automaticamente
+2. A criação do programa de prototipação
+3. A adição de dois protótipos com descrições detalhadas
+4. A convocação do especialista
+5. Um relatório formatado exibindo:
+   - O nome e ID do programa
+   - Dados completos do coordenador (estudante)
+   - Dados completos do orientador (professor)
+   - Informações do laboratório
+   - Lista de protótipos com suas descrições
+   - Lista de especialistas convidados
+6. Uma demonstração clara da proteção de invariantes ao tentar criar um Estudante inválido
+7. A captura e exibição da mensagem de exceção
+
+## Validações Confirmadas
+
+✓ **Criação de Entidades**: Estudante, Professor e LaboratorioMaker são instanciados com sucesso  
+✓ **Associações**: O ProgramaPrototipacao recebe corretamente os três atores principais  
+✓ **Adição de Protótipos**: Dois protótipos são adicionados e armazenados corretamente  
+✓ **Convite de Especialista**: Um especialista é convidado e vinculado ao programa  
+✓ **Geração de Relatório**: As informações são acessíveis e exibidas corretamente  
+✓ **Proteção de Invariantes**: As exceções de validação são lançadas apropriadamente  
+✓ **Fluxo em Memória**: Todo o cenário funciona completamente em memória sem persistência
