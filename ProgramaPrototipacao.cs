@@ -6,6 +6,7 @@ namespace SistemaLaboratorioAcademico
     public sealed class ProgramaPrototipacao
     {
         private readonly List<Prototipo> _prototipos = new();
+        private readonly List<Especialista> _especialistas = new();
         private static int _nextId = 1;
 
         public int Id { get; private set; }
@@ -15,6 +16,7 @@ namespace SistemaLaboratorioAcademico
         public LaboratorioMaker Laboratorio { get; private set; }
 
         public IReadOnlyCollection<Prototipo> Prototipos => _prototipos;
+        public IReadOnlyCollection<Especialista> Especialistas => _especialistas;
 
         public ProgramaPrototipacao(string nome, Estudante coordenador, Professor orientador, LaboratorioMaker laboratorio)
         {
@@ -53,6 +55,20 @@ namespace SistemaLaboratorioAcademico
             }
 
             _prototipos.Add(prototipo);
+        }
+
+        public void ConvidarEspecialista(Especialista especialista)
+        {
+            if (especialista is null)
+            {
+                throw new ArgumentNullException(nameof(especialista));
+            }
+
+            if (!_especialistas.Contains(especialista))
+            {
+                _especialistas.Add(especialista);
+                especialista.VincularPrograma(this);
+            }
         }
     }
 }
