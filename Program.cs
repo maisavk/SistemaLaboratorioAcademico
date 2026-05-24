@@ -1,8 +1,9 @@
 ﻿using System;
-using SistemaLaboratorioAcademico;
 using SistemaLaboratorioAcademico.Application;
 using SistemaLaboratorioAcademico.Application.DTOs.ProgramaPrototipacao;
 using SistemaLaboratorioAcademico.Application.Services;
+using SistemaLaboratorioAcademico.Domain.Entities;
+using SistemaLaboratorioAcademico.Infrastructure.Persistence;
 
 Console.WriteLine("═══════════════════════════════════════════════════════════════");
 Console.WriteLine("  SISTEMA DE LABORATÓRIO ACADÊMICO - FLUXO DE APLICAÇÃO");

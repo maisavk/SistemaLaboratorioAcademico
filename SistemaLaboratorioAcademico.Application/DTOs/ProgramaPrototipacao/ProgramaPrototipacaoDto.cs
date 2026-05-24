@@ -1,6 +1,6 @@
 namespace SistemaLaboratorioAcademico.Application.DTOs.ProgramaPrototipacao;
 
-public sealed class ProgramaPrototipacaoDto
+public sealed record ProgramaPrototipacaoDto
 {
     public int Id { get; init; }
     public string Nome { get; init; } = string.Empty;

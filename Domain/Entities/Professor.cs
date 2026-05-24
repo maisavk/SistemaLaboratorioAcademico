@@ -1,6 +1,6 @@
 using System;
 
-namespace SistemaLaboratorioAcademico
+namespace SistemaLaboratorioAcademico.Domain.Entities
 {
     public sealed class Professor
     {

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SistemaLaboratorioAcademico
+namespace SistemaLaboratorioAcademico.Domain.Entities
 {
     public sealed class Especialista
     {

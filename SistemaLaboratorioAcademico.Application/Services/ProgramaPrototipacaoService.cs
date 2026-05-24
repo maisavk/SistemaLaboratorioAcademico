@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
-using SistemaLaboratorioAcademico;
 using SistemaLaboratorioAcademico.Application.DTOs.ProgramaPrototipacao;
 using SistemaLaboratorioAcademico.Application.Results;
+using SistemaLaboratorioAcademico.Domain.Entities;
+using SistemaLaboratorioAcademico.Infrastructure.Persistence;
 
 namespace SistemaLaboratorioAcademico.Application.Services;
 

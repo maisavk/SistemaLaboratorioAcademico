@@ -1,4 +1,6 @@
-namespace SistemaLaboratorioAcademico.Application;
+using SistemaLaboratorioAcademico.Domain.Entities;
+
+namespace SistemaLaboratorioAcademico.Infrastructure.Persistence;
 
 public sealed class InMemoryLaboratoryStore
 {

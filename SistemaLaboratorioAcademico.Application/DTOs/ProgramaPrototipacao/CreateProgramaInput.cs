@@ -1,6 +1,6 @@
 namespace SistemaLaboratorioAcademico.Application.DTOs.ProgramaPrototipacao;
 
-public sealed class CreateProgramaInput
+public sealed record CreateProgramaInput
 {
     public string Nome { get; init; } = string.Empty;
     public int CoordenadorId { get; init; }
